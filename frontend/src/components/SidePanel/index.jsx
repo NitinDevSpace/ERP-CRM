@@ -4,7 +4,7 @@ import { useAppContext } from '@/context/appContext';
 import { Grid, Layout, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import CollapseBox from '../CollapseBox';
-import './sidePanel.css';
+import '../../style/partials/sidePanel.css';
 
 const { useBreakpoint } = Grid;
 const { Sider } = Layout;

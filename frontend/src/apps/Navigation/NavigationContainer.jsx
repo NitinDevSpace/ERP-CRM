@@ -144,36 +144,38 @@ function Sidebar({ collapsible, isMobile = false }) {
       }}
       theme={'light'}
     >
-      <div
-        className="logo"
-        onClick={() => navigate('/')}
-        style={{
-          cursor: 'pointer',
-        }}
-      >
-        <img src={logoIcon} alt="Logo" style={{ marginLeft: '-5px', height: '40px' }} />
+      <div style={{ position: 'fixed' }}>
+        <div
+          className="logo"
+          onClick={() => navigate('/')}
+          style={{
+            cursor: 'pointer',
+          }}
+        >
+          <img src={logoIcon} alt="Logo" style={{ marginLeft: '-5px', height: '40px' }} />
 
-        {!showLogoApp && (
-          <img
-            src={logoText}
-            alt="Logo"
-            style={{
-              marginTop: '3px',
-              marginLeft: '10px',
-              height: '38px',
-            }}
-          />
-        )}
+          {!showLogoApp && (
+            <img
+              src={logoText}
+              alt="Logo"
+              style={{
+                marginTop: '3px',
+                marginLeft: '10px',
+                height: '38px',
+              }}
+            />
+          )}
+        </div>
+        <Menu
+          items={items}
+          mode="inline"
+          theme={'light'}
+          selectedKeys={[currentPath]}
+          style={{
+            width: 256,
+          }}
+        />
       </div>
-      <Menu
-        items={items}
-        mode="inline"
-        theme={'light'}
-        selectedKeys={[currentPath]}
-        style={{
-          width: 256,
-        }}
-      />
     </Sider>
   );
 }
