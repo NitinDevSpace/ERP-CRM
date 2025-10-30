@@ -17,6 +17,7 @@
   min-height: 100px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
+  border-radius: 5px;
 }
 .shadow {
   border: 1px solid #e0e0e0;

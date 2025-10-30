@@ -85,6 +85,29 @@ export default function DashboardModule() {
     {
       title: translate('Status'),
       dataIndex: 'status',
+      render: (status) => {
+        let color;
+        switch (status?.toLowerCase()) {
+          case 'paid':
+          case 'approved':
+            color = 'green';
+            break;
+          case 'pending':
+          case 'in progress':
+            color = 'orange';
+            break;
+          case 'rejected':
+          case 'cancelled':
+          case 'unpaid':
+            color = 'red';
+            break;
+          default:
+            color = 'gray';
+        }
+
+        // Using Ant Design's Tag for better styling
+        return <Tag color={color} style={{borderRadius:'5px'}}>{status}</Tag>;
+      },
     },
   ];
 
@@ -133,24 +156,28 @@ export default function DashboardModule() {
             prefix={translate('This month')}
             isLoading={invoiceLoading}
             data={invoiceResult?.total}
+            tagColor="blue"
           />
           <SummaryCard
             title={translate('Quote')}
             prefix={translate('This month')}
             isLoading={quoteLoading}
             data={quoteResult?.total}
+            tagColor="purple"
           />
           <SummaryCard
             title={translate('paid')}
             prefix={translate('This month')}
             isLoading={paymentLoading}
             data={paymentResult?.total}
+            tagColor="green"
           />
           <SummaryCard
             title={translate('Unpaid')}
             prefix={translate('Not Paid')}
             isLoading={invoiceLoading}
             data={invoiceResult?.total_undue}
+            tagColor="red"
           />
         </Row>
         <div className="space30"></div>

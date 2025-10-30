@@ -80,10 +80,7 @@ const PreviewState = ({ tag, value }) => {
       <Progress
         percent={value}
         showInfo={false}
-        strokeColor={{
-          '0%': '#333',
-          '100%': '#333',
-        }}
+        strokeColor={[colours[tag] || '#1890ff']}
       />
     </div>
   );
