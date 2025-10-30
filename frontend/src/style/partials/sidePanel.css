@@ -1,0 +1,19 @@
+.sidePanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; 
+  border-right: 1px solid #edf0f5;
+  background: #c50c0c;
+  z-index: 1000; /* ensure it stays above content */
+}
+
+.sidePanelContent {
+  position: relative; 
+  color: #000;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto; /* makes sidebar scrollable independently */
+  transition: all 0.3s ease-in-out;
+}
