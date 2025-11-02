@@ -17,7 +17,11 @@ const schema = new mongoose.Schema({
   phone: String,
   country: String,
   address: String,
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'Admin' },
   assigned: { type: mongoose.Schema.ObjectId, ref: 'Admin' },
   created: {
