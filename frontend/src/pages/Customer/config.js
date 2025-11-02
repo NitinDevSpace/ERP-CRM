@@ -1,10 +1,12 @@
+
 export const fields = {
   name: {
     type: 'string',
+    required: true,
   },
   country: {
     type: 'country',
-    // color: 'red',
+    color: 'red',
   },
   address: {
     type: 'string',
@@ -14,5 +16,7 @@ export const fields = {
   },
   email: {
     type: 'email',
+    required: true,
+    unique: true,
   },
 };

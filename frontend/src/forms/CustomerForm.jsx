@@ -54,6 +54,7 @@ export default function CustomerForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
+            
           },
           {
             validator: validateEmptyString,
@@ -95,6 +96,7 @@ export default function CustomerForm({ isUpdateForm = false }) {
           },
           {
             required: true,
+            message: 'Please enter a valid email address',
           },
           {
             validator: validateEmptyString,
