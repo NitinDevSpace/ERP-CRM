@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { Tag } from 'antd';
 import useLanguage from '@/locale/useLanguage';
-import { tagColor } from '@/utils/statusTagColor';
+import { statusTagColorList, tagColor } from '@/utils/statusTagColor';
 
 import { useMoney, useDate } from '@/settings';
 import InvoiceDataTableModule from '@/modules/InvoiceModule/InvoiceDataTableModule';
@@ -35,7 +35,7 @@ export default function Invoice() {
       },
     },
     {
-      title: translate('expired Date'),
+      title: translate('expire Date'),
       dataIndex: 'expiredDate',
       render: (date) => {
         return dayjs(date).format(dateFormat);
@@ -47,6 +47,7 @@ export default function Invoice() {
       onCell: () => {
         return {
           style: {
+            color: 'purple',
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
@@ -63,6 +64,7 @@ export default function Invoice() {
       onCell: () => {
         return {
           style: {
+            color: 'green',
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
@@ -74,6 +76,14 @@ export default function Invoice() {
     {
       title: translate('Status'),
       dataIndex: 'status',
+      render: (status) => {
+        const statusInfo = tagColor(status); // get the full status object
+        return (
+          <Tag color={statusInfo.color || 'default'}>
+            {statusInfo.icon} {translate(statusInfo.label || status)}
+          </Tag>
+        );
+      },
     },
     {
       title: translate('Payment'),

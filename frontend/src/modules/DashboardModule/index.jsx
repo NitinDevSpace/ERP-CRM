@@ -18,6 +18,8 @@ import CustomerPreviewCard from './components/CustomerPreviewCard';
 import { selectMoneyFormat } from '@/redux/settings/selectors';
 import { useSelector } from 'react-redux';
 
+import { tagColor } from '@/utils/statusTagColor';
+
 export default function DashboardModule() {
   const translate = useLanguage();
   const { moneyFormatter } = useMoney();
@@ -77,36 +79,31 @@ export default function DashboardModule() {
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
+            maxWidth: '170px',
+            overflow: 'scroll',
           },
         };
       },
       render: (total, record) => moneyFormatter({ amount: total, currency_code: record.currency }),
     },
     {
+      title: translate('Date'),
+      dataIndex: 'date',
+      render: (date) => new Date(date).toLocaleDateString(),
+    },
+    {
       title: translate('Status'),
       dataIndex: 'status',
       render: (status) => {
-        let color;
-        switch (status?.toLowerCase()) {
-          case 'paid':
-          case 'approved':
-            color = 'green';
-            break;
-          case 'pending':
-          case 'in progress':
-            color = 'orange';
-            break;
-          case 'rejected':
-          case 'cancelled':
-          case 'unpaid':
-            color = 'red';
-            break;
-          default:
-            color = 'gray';
-        }
-
-        // Using Ant Design's Tag for better styling
-        return <Tag color={color} style={{borderRadius:'5px'}}>{status}</Tag>;
+        const statusInfo = tagColor(status?.toLowerCase().trim());
+        return (
+          <Tag
+            color={statusInfo.color || 'gray'}
+            style={{ borderRadius: '5px', textTransform: 'capitalize' }}
+          >
+            {statusInfo.icon} {translate(statusInfo.label || status)}
+          </Tag>
+        );
       },
     },
   ];
