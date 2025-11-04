@@ -37,7 +37,7 @@ export default function Quote() {
       title: translate('expired Date'),
       dataIndex: 'expiredDate',
       render: (date) => {
-        return dayjs(date).format(dateFormat);
+        return <span style={{ color: 'red' }}>{dayjs(date).format(dateFormat)}</span>;
       },
     },
     {
@@ -46,6 +46,7 @@ export default function Quote() {
       onCell: () => {
         return {
           style: {
+            color: 'purple',
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
@@ -60,6 +61,7 @@ export default function Quote() {
       onCell: () => {
         return {
           style: {
+            color: 'blue',
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
@@ -72,6 +74,14 @@ export default function Quote() {
     {
       title: translate('Status'),
       dataIndex: 'status',
+      render: (status) => {
+        const statusInfo = tagColor(status);
+        return (
+          <Tag color={statusInfo.color || 'default'}>
+            {statusInfo.icon} {translate(statusInfo.label || status)}
+          </Tag>
+        );
+      },
     },
   ];
 

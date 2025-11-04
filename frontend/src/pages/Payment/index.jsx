@@ -3,6 +3,7 @@ import useLanguage from '@/locale/useLanguage';
 import PaymentDataTableModule from '@/modules/PaymentModule/PaymentDataTableModule';
 
 import { useMoney, useDate } from '@/settings';
+import color from '@/utils/color';
 
 export default function Payment() {
   const translate = useLanguage();
@@ -32,6 +33,7 @@ export default function Payment() {
       onCell: () => {
         return {
           style: {
+            color: 'green',
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
