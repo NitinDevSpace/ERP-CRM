@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Tag, Row, Col } from 'antd';
+import { Tag, Row, Col, Tooltip } from 'antd';
 import useLanguage from '@/locale/useLanguage';
 
 import { useMoney } from '@/settings';
@@ -79,12 +79,31 @@ export default function DashboardModule() {
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
-            maxWidth: '170px',
-            overflow: 'scroll',
+            maxWidth: '130px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            cursor: 'pointer',
           },
         };
       },
-      render: (total, record) => moneyFormatter({ amount: total, currency_code: record.currency }),
+      render: (total, record) => {
+        const formattedTotal = moneyFormatter({ amount: total, currency_code: record.currency });
+        return (
+          <Tooltip title={formattedTotal} mouseEnterDelay={0} mouseLeaveDelay={0}>
+            <span
+              style={{
+                display: 'inline-block',
+                maxWidth: '130px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {formattedTotal}
+            </span>
+          </Tooltip>
+        );
+      },
     },
     {
       title: translate('Date'),

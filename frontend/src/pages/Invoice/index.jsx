@@ -47,7 +47,7 @@ export default function Invoice() {
       onCell: () => {
         return {
           style: {
-            color: 'purple',
+            color: 'blue',
             textAlign: 'right',
             whiteSpace: 'nowrap',
             direction: 'ltr',
