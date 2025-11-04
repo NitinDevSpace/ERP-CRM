@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import useLanguage from '@/locale/useLanguage';
 import { statusTagColorList, tagColor } from '@/utils/statusTagColor';
 
@@ -26,6 +26,17 @@ export default function Invoice() {
     {
       title: translate('Client'),
       dataIndex: ['client', 'name'],
+      width: 180,
+      onCell: () => {
+        return {
+          style: {
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            maxWidth: '130px',
+          },
+        };
+      },
     },
     {
       title: translate('Date'),
@@ -38,7 +49,7 @@ export default function Invoice() {
       title: translate('expire Date'),
       dataIndex: 'expiredDate',
       render: (date) => {
-        return dayjs(date).format(dateFormat);
+        return <span style={{ color: 'red' }}>{dayjs(date).format(dateFormat)}</span>;
       },
     },
     {
@@ -55,7 +66,23 @@ export default function Invoice() {
         };
       },
       render: (total, record) => {
-        return moneyFormatter({ amount: total, currency_code: record.currency });
+        const formattedTotal = moneyFormatter({ amount: total, currency_code: record.currency });
+        return (
+          <Tooltip title={formattedTotal} mouseEnterDelay={0} mouseLeaveDelay={0}>
+            <span
+              style={{
+                display: 'inline-block',
+                maxWidth: '130px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                color: 'blue',
+              }}
+            >
+              {formattedTotal}
+            </span>
+          </Tooltip>
+        );
       },
     },
     {
@@ -71,13 +98,31 @@ export default function Invoice() {
           },
         };
       },
-      render: (total, record) => moneyFormatter({ amount: total, currency_code: record.currency }),
+      render: (total, record) => {
+        const formattedTotal = moneyFormatter({ amount: total, currency_code: record.currency });
+        return (
+          <Tooltip title={formattedTotal} mouseEnterDelay={0} mouseLeaveDelay={0}>
+            <span
+              style={{
+                display: 'inline-block',
+                maxWidth: '130px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                color: 'green',
+              }}
+            >
+              {formattedTotal}
+            </span>
+          </Tooltip>
+        );
+      },
     },
     {
       title: translate('Status'),
       dataIndex: 'status',
       render: (status) => {
-        const statusInfo = tagColor(status); // get the full status object
+        const statusInfo = tagColor(status);
         return (
           <Tag color={statusInfo.color || 'default'}>
             {statusInfo.icon} {translate(statusInfo.label || status)}
@@ -88,6 +133,14 @@ export default function Invoice() {
     {
       title: translate('Payment'),
       dataIndex: 'paymentStatus',
+      render: (status) => {
+        const statusInfo = tagColor(status);
+        return (
+          <Tag color={statusInfo.color || 'default'}>
+            {statusInfo.icon} {translate(statusInfo.label || status)}
+          </Tag>
+        );
+      },
     },
   ];
 
