@@ -8,6 +8,7 @@ const adminController = require('@/controllers/coreControllers/adminController')
 const settingController = require('@/controllers/coreControllers/settingController');
 
 const { singleStorageUpload } = require('@/middlewares/uploadMiddleware');
+const { LocalSingleStorage } = require('@/middlewares/uploadMiddleware');
 
 // //_______________________________ Admin management_______________________________
 
@@ -44,10 +45,8 @@ router
   .patch(catchErrors(settingController.updateBySettingKey));
 router
   .route('/setting/upload/:settingKey?')
-  .patch(
-    catchErrors(
-      singleStorageUpload({ entity: 'setting', fieldName: 'settingValue', fileType: 'image' })
-    ),
+  .post(
+    LocalSingleStorage({ entity: 'setting', fieldName: 'settingValue', fileType: 'image' }),
     catchErrors(settingController.updateBySettingKey)
   );
 router.route('/setting/updateManySetting').patch(catchErrors(settingController.updateManySetting));

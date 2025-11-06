@@ -18,7 +18,7 @@ export default function AppSettingForm() {
     if (!isLt2M) {
       message.error('Image must smaller than 5MB!');
     }
-    
+    return isJpgOrPng && isLt2M;
   };
   return (
     <>
@@ -29,7 +29,9 @@ export default function AppSettingForm() {
         getValueFromEvent={(e) => e.fileList}
       >
         <Upload
-          action="/api/v1/settings/upload-company-logo"
+          name="settingValue" // ✅ match backend fieldName
+          action="http://localhost:8888/api/setting/upload/companyLogo"
+          method="POST"
           beforeUpload={beforeUpload}
           listType="picture"
           accept="image/png, image/jpeg"

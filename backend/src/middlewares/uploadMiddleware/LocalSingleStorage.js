@@ -4,7 +4,7 @@ const { slugify } = require('transliteration');
 
 const fileFilter = require('./utils/LocalfileFilter');
 
-const singleStorageUpload = ({
+const LocalSingleStorage = ({
   entity,
   fileType = 'default',
   uploadFieldName = 'file',
@@ -55,4 +55,4 @@ const singleStorageUpload = ({
   return multerStorage;
 };
 
-module.exports = singleStorageUpload;
+module.exports = LocalSingleStorage;
