@@ -77,7 +77,7 @@ export default function ItemRow({ field, remove, current = null }) {
       </Col>
       <Col className="gutter-row" span={3}>
         <Form.Item name={[field.name, 'quantity']} rules={[{ required: true }]}>
-          <InputNumber style={{ width: '100%' }} min={0} onChange={updateQt} />
+          <InputNumber style={{ width: '100%' }} min={0} onChange={updateQt} defaultValue={1} />
         </Form.Item>
       </Col>
       <Col className="gutter-row" span={4}>

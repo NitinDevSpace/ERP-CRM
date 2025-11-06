@@ -89,9 +89,6 @@ const SelectAsync = ({
           </Select.Option>
         );
       })}
-      {withRedirect && (
-        <Select.Option value={'redirectURL'}>{`+ ` + translate(redirectLabel)}</Select.Option>
-      )}
     </Select>
   );
 };
