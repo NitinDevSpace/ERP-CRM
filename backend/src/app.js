@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
+
 const cors = require('cors');
 const compression = require('compression');
 
@@ -20,6 +21,7 @@ const erpApiRouter = require('./routes/appRoutes/appApi');
 const fileUpload = require('express-fileupload');
 // create our Express app
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(
   cors({
@@ -54,7 +56,6 @@ app.use(express.static(clientBuildPath));
 
 app.get(/(.*)/, (req, res) => {
   const indexPath = path.join(clientBuildPath, 'index.html');
-  console.log(indexPath);
   
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
