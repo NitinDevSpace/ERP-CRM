@@ -48,7 +48,7 @@ app.use('/download', coreDownloadRouter);
 app.use('/public', corePublicRouter);
 
 
-const clientBuildPath = path.join(__dirname, '../frontend');
+const clientBuildPath = path.join(__dirname, '../frontend/dist');
 app.use(express.static(clientBuildPath));
 
 app.get(/(.*)/, (req, res) => {
