@@ -49,11 +49,13 @@ app.use('/download', coreDownloadRouter);
 app.use('/public', corePublicRouter);
 
 
-const clientBuildPath = path.join(__dirname, '../frontend/dist');
+const clientBuildPath = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(clientBuildPath));
 
 app.get(/(.*)/, (req, res) => {
   const indexPath = path.join(clientBuildPath, 'index.html');
+  console.log(indexPath);
+  
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
