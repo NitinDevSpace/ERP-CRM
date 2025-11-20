@@ -1,5 +1,7 @@
 const express = require('express');
 
+const path = require('path');
+
 const cors = require('cors');
 const compression = require('compression');
 
@@ -44,6 +46,19 @@ app.use('/api', adminAuth.isValidAuthToken, coreApiRouter);
 app.use('/api', adminAuth.isValidAuthToken, erpApiRouter);
 app.use('/download', coreDownloadRouter);
 app.use('/public', corePublicRouter);
+
+
+const clientBuildPath = path.join(__dirname, '../frontend');
+app.use(express.static(clientBuildPath));
+
+app.get(/(.*)/, (req, res) => {
+  const indexPath = path.join(clientBuildPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('Frontend build not found.');
+  }
+});
 
 // If that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);
